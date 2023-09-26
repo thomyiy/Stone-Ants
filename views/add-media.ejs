@@ -1,0 +1,90 @@
+<%- contentFor('HeaderCss') %>
+<%- include("partials/title-meta", {"title": "Starter page"}) %>
+<!-- choices css -->
+<link href="/assets/libs/choices.js/public/assets/styles/choices.min.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/libs/dropzone/min/dropzone.min.css" rel="stylesheet" type="text/css"/>
+
+<%- contentFor('body') %>
+<%- include("partials/page-title", {"pagetitle": "Symox", "title": "Welcome !"}) %>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div>
+                    <form action="/upload-media" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="token" value="<%= useremail %>">
+                        <div class="col-3">
+                            <label class="form-label" for="name">Name</label>
+                            <input type="text" class="form-control" id="name" name="name"
+                                   placeholder="Enter name">
+                        </div>
+                        <div class="col-3">
+                            <label class="form-label" for="name">Description</label>
+                            <input type="text" class="form-control" id="description" name="description"
+                                   placeholder="Enter description">
+                        </div>
+
+                        <div class="col-3">
+                            <label class="form-label" for="name">Thumbnail</label>
+                            <input name="thumbnail" type="file" required>
+                        </div>
+                        <div class="col-3">
+                            <label class="form-label" for="name">File</label>
+                            <input name="file" type="file" required>
+                        </div>
+
+                        <div class="mt-4">
+                            <label class="form-label" for="name">Tags</label>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="mb-3">
+                                        <input class="form-control" id="choices-text-remove-button" name="tags" type="text"
+                                               value="Task-1,Task-2" placeholder="Enter tag"/>
+                                    </div>
+                                </div>
+                                <!-- end col -->
+                            </div>
+                            <!-- end row -->
+                        </div>
+                        <div class="mt-3 text-end">
+                            <button class="btn btn-primary w-sm waves-effect waves-light" type="submit">Send</button>
+                        </div>
+
+                        <!--<div class="mb-3">
+                            <label class="form-label" for="username">Username</label>
+                            <input type="text" class="form-control" id="username" name="username"  placeholder="Enter username">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="useremail">Email</label>
+                            <input type="email" class="form-control" id="useremail" name="email"  placeholder="Enter email">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="userpassword">Password</label>
+                            <input type="password" class="form-control" id="userpassword" name="password" placeholder="Enter password">
+                        </div>
+
+                        <div class="mt-3 text-end">
+                            <button class="btn btn-primary w-sm waves-effect waves-light" type="submit">Register</button>
+                        </div>-->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->
+
+<%- contentFor('FooterJs') %>
+<!-- Plugins js -->
+<script src="/assets/libs/dropzone/min/dropzone.min.js"></script>
+
+<!-- choices js -->
+<script src="/assets/libs/choices.js/public/assets/scripts/choices.min.js"></script>
+
+<!-- init js -->
+<!--<script src="/assets/js/pages/form-advanced.init.js"></script>-->
+<script> new Choices(document.getElementById("choices-text-remove-button"), {
+        delimiter: ",",
+        editItems: !0,
+        removeItemButton: !0
+    })</script>

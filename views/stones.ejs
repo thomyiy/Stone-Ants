@@ -1,0 +1,266 @@
+<%- contentFor('HeaderCss') %>
+<%- include("partials/title-meta", {"title": "Stones"}) %>
+<link href="/assets/libs/choices.js/public/assets/styles/choices.min.css" rel="stylesheet" type="text/css"/>
+
+<!-- color picker css -->
+<link rel="stylesheet" href="/assets/libs/@simonwep/pickr/themes/classic.min.css"/> <!-- 'classic' theme -->
+<link rel="stylesheet" href="/assets/libs/@simonwep/pickr/themes/monolith.min.css"/> <!-- 'monolith' theme -->
+<link rel="stylesheet" href="/assets/libs/@simonwep/pickr/themes/nano.min.css"/> <!-- 'nano' theme -->
+
+<!-- datepicker css -->
+<link rel="stylesheet" href="/assets/libs/flatpickr/flatpickr.min.css">
+<%- contentFor('body') %>
+<%- include("partials/page-title", {"pagetitle": "StoneAnts", "title": "Stones !"}) %>
+
+<div class="row">
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="mb-12">
+                <label for="shape-choice" class="form-label font-size-13 text-muted">Shape</label>
+                <select class="form-control" name="shape-choice" id="shape-choice"
+                        placeholder="This is a placeholder" multiple>
+                    <option value="ROUND">ROUND</option>
+                    <option value="PRINCESS">PRINCESS</option>
+                    <option value="PEAR">PEAR</option>
+                    <option value="MARQUISE">MARQUISE</option>
+                    <option value="EMERALD">EMERALD</option>
+                    <option value="CUSHION">CUSHION</option>
+                    <option value="OVAL">OVAL</option>
+                    <option value="RADIANT">RADIANT</option>
+                    <option value="SQ EMERALD">SQ EMERALD</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12">
+            <div class="mb-12">
+                <label for="color-choice" class="form-label font-size-13 text-muted">Color</label>
+                <select class="form-control" name="color-choice" id="color-choice"
+                        placeholder="This is a placeholder" multiple>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                    <option value="F">F</option>
+                    <option value="G">G</option>
+                    <option value="H">H</option>
+                    <option value="I">I</option>
+                    <option value="J">J</option>
+                    <option value="K">K</option>
+                    <option value="L">L</option>
+                    <option value="M">M</option>
+                    <option value="N">N</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12">
+            <div class="mb-12">
+                <label for="clarity-choice" class="form-label font-size-13 text-muted">Clarity</label>
+                <select class="form-control" name="clarity-choice" id="clarity-choice"
+                        placeholder="This is a placeholder" multiple>
+                    <option value="FL">FL</option>
+                    <option value="IF">IF</option>
+                    <option value="VVS1">VVS1</option>
+                    <option value="VVS2">VVS2</option>
+                    <option value="SI1">SI1</option>
+                    <option value="SI2">SI2</option>
+                    <option value="SI3">SI3</option>
+                    <option value="I1">I1</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12">
+            <div class="mb-12">
+                <label for="cert-choice" class="form-label font-size-13 text-muted">Certificate</label>
+                <select class="form-control" name="cert-choice" id="cert-choice"
+                        placeholder="This is a placeholder" multiple>
+                    <option value="FM">FM</option>
+                    <option value="GIA">GIA</option>
+                    <option value="HRD">HRD</option>
+                    <option value="IGI">IGI</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-lg-12 col-md-12">
+            <div class="mb-12">
+                <label for="fluorescence-choice" class="form-label font-size-13 text-muted">Fluorescence</label>
+                <select class="form-control" name="fluorescence-choice" id="fluorescence-choice"
+                        placeholder="This is a placeholder" multiple>
+                    <option value="NONE">NONE</option>
+                    <option value="FNT">FNT</option>
+                    <option value="VSL">VSL</option>
+                    <option value="MED">MED</option>
+                    <option value="SL">SL</option>
+                    <option value="STG">STG</option>
+                    <option value="VST">VST</option>
+                </select>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="example-number-input" class="col-md-2 col-form-label">Carat</label>
+            <div class="col-md-5">
+                <input class="form-control" type="number" value="" placeholder="From" id="carat-from">
+            </div>
+            <div class="col-md-5">
+                <input class="form-control" type="number" value="" placeholder="To" id="carat-to">
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label for="example-number-input" class="col-md-2 col-form-label">Price</label>
+            <div class="col-md-5">
+                <input class="form-control" type="number" value="" placeholder="From" id="price-from">
+            </div>
+            <div class="col-md-5">
+                <input class="form-control" type="number" value="" placeholder="To" id="price-to">
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <div class="mt-4">
+                <button onclick="search()" type="submit" class="btn btn-primary w-md">Search</button>
+            </div>
+        </div>
+        
+    </div>
+    <!-- end row -->
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title mb-0">Pagination</h4>
+            </div><!-- end card header -->
+            <div class="card-body">
+                <div id="table-pagination"></div>
+            </div>
+            <!-- end card body -->
+        </div>
+        <!-- end card -->
+    </div>
+    <!-- end col -->
+</div>
+<!-- end row -->
+
+<!-- end row -->
+<%- contentFor('FooterJs') %>
+<!-- gridjs js -->
+<script src="/assets/libs/gridjs/gridjs.umd.js"></script>
+
+
+<script src="/assets/libs/choices.js/public/assets/scripts/choices.min.js"></script>
+
+<!-- color picker js -->
+<script src="/assets/libs/@simonwep/pickr/pickr.min.js"></script>
+<script src="/assets/libs/@simonwep/pickr/pickr.es5.min.js"></script>
+
+<!-- datepicker js -->
+<script src="/assets/libs/flatpickr/flatpickr.min.js"></script>
+<script>
+    function search() {
+        /*console.log("search");
+        console.log(shapeChoice.getValue())
+        console.log(colorChoice.getValue())
+        console.log(clarityChoice.getValue())
+        console.log(certChoice.getValue())
+        console.log(fluorescenceChoice.getValue())
+        console.log(document.getElementById("carat-from").value)
+        console.log(document.getElementById("carat-to").value)
+        console.log(document.getElementById("price-from").value)
+        console.log(document.getElementById("price-to").value)*/
+
+        var shapes = shapeChoice.getValue().map((x) => x.value);
+        var colors = colorChoice.getValue().map((x) => x.value);
+        var clarities = clarityChoice.getValue().map((x) => x.value);
+        var certs = certChoice.getValue().map((x) => x.value);
+        var fluorescences = fluorescenceChoice.getValue().map((x) => x.value);
+
+        var data = {
+            "shapes": shapes,
+            "colors": colors,
+            "clarities": clarities,
+            "certs": certs,
+            "fluorescences": fluorescences,
+            "carat": {
+                "from": document.getElementById("carat-from").value,
+                "to": document.getElementById("carat-to").value,
+            },
+            "price": {
+                "from": document.getElementById("price-from").value,
+                "to": document.getElementById("price-to").value,
+            },
+        }
+
+        fetch('search', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            }
+        })
+            .then(function (response) {
+                return response.json()
+            })
+            .then(function (data) {
+                grid.updateConfig({
+                    data: data
+                }).forceRender();
+            }).catch(error => console.log('Error:', error));
+
+        console.log(data);
+    }
+
+    function certificateFormatter(cell, row) {
+        if (row.cells[5].data === "GIA")
+            return gridjs.html(`<a href="https://www.gia.edu/report-check?reportno=${cell}" target="_blank">${cell}</a>`);
+        else if (row.cells[5].data === "HRD")
+            return gridjs.html(`<a href="https://my.hrdantwerp.com/" target="_blank">${cell}</a>`);
+        else if (row.cells[5].data === "IGI")
+            return gridjs.html(`<a href="https://www.igi.org/reports/verify-your-report?r=${cell}" target="_blank">${cell}</a>`);
+        return cell;
+    }
+
+    var grid = new gridjs.Grid({
+        columns: ["STOCKID", "SHAPE", "CARAT", "COLOR", "CLARITY", "CERT",
+            {
+                name: 'CERTNO',
+                formatter: (cell, row) => certificateFormatter(cell, row)
+
+            },
+            "CUT", "POL", "SYM", "FLUOR", "MEASUREMENT", "PRICE/Ct (€)", "PRICE (€)"],
+        pagination: {limit: 30},
+
+        data: <%- data %>
+    }).render(document.getElementById("table-pagination"));
+    // text inputs example
+    var shapeChoice = new Choices(
+        '#shape-choice',
+        {
+            removeItemButton: true,
+            shouldSort: false
+        }
+    );
+    var colorChoice = new Choices(
+        '#color-choice',
+        {
+            removeItemButton: true,
+            shouldSort: false
+        }
+    );
+    var clarityChoice = new Choices(
+        '#clarity-choice',
+        {
+            removeItemButton: true,
+            shouldSort: false
+        }
+    );
+    var certChoice = new Choices(
+        '#cert-choice',
+        {
+            removeItemButton: true,
+            shouldSort: false
+        }
+    );
+    var fluorescenceChoice = new Choices(
+        '#fluorescence-choice',
+        {
+            removeItemButton: true,
+            shouldSort: false
+        }
+    );
+</script>
