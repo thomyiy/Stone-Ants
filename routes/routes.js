@@ -166,16 +166,25 @@ module.exports = function (route) {
                     if (search.fluorescences.length && !search.fluorescences.includes(row["FLUOR"])) {
                         return;
                     }
+                    if (search.cut.length && !search.cut.includes(row["CUT"])) {
+                        return;
+                    }
+                    if (search.polish.length && !search.polish.includes(row["POL"])) {
+                        return;
+                    }
+                    if (search.symmetry.length && !search.symmetry.includes(row["SYM"])) {
+                        return;
+                    }
                     if (search.carat.from.length && search.carat.from > Number(row["CARAT"])) {
                         return;
                     }
                     if (search.carat.to.length && search.carat.to < Number(row["CARAT"])) {
                         return;
                     }
-                    if (search.price.from.length && search.price.from > Number(row["VALUE"]*1.2)) {
+                    if (search.price.from.length && search.price.from > Number(row["VALUE"] * 1.2)) {
                         return;
                     }
-                    if (search.price.to.length && search.price.to < Number(row["VALUE"]*1.2)) {
+                    if (search.price.to.length && search.price.to < Number(row["VALUE"] * 1.2)) {
                         return;
                     }
                 }
@@ -209,9 +218,8 @@ module.exports = function (route) {
                 r.push(row["POL"]);
                 r.push(row["SYM"]);
                 r.push(row["FLUOR"]);
-                r.push(row["MEASUREMENT"]);
-                r.push(row["PRICE"] * 1.2);
-                r.push(row["VALUE"] * 1.2);
+                r.push(Math.round(row["PRICE"] * 1.2));
+                r.push(Math.round(row["VALUE"] * 1.2));
 
                 result.push(r)
                 //}

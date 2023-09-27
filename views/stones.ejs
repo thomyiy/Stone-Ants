@@ -6,138 +6,205 @@
 <link rel="stylesheet" href="/assets/libs/@simonwep/pickr/themes/classic.min.css"/> <!-- 'classic' theme -->
 <link rel="stylesheet" href="/assets/libs/@simonwep/pickr/themes/monolith.min.css"/> <!-- 'monolith' theme -->
 <link rel="stylesheet" href="/assets/libs/@simonwep/pickr/themes/nano.min.css"/> <!-- 'nano' theme -->
+<link rel="stylesheet" href="/assets/libs/gridjs/theme/mermaid.min.css">
 
 <!-- datepicker css -->
 <link rel="stylesheet" href="/assets/libs/flatpickr/flatpickr.min.css">
 <%- contentFor('body') %>
 <%- include("partials/page-title", {"pagetitle": "StoneAnts", "title": "Stones !"}) %>
-
 <div class="row">
-    <div class="row">
-        <div class="col-lg-12 col-md-12">
-            <div class="mb-12">
-                <label for="shape-choice" class="form-label font-size-13 text-muted">Shape</label>
-                <select class="form-control" name="shape-choice" id="shape-choice"
-                        placeholder="This is a placeholder" multiple>
-                    <option value="ROUND">ROUND</option>
-                    <option value="PRINCESS">PRINCESS</option>
-                    <option value="PEAR">PEAR</option>
-                    <option value="MARQUISE">MARQUISE</option>
-                    <option value="EMERALD">EMERALD</option>
-                    <option value="CUSHION">CUSHION</option>
-                    <option value="OVAL">OVAL</option>
-                    <option value="RADIANT">RADIANT</option>
-                    <option value="SQ EMERALD">SQ EMERALD</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-lg-12 col-md-12">
-            <div class="mb-12">
-                <label for="color-choice" class="form-label font-size-13 text-muted">Color</label>
-                <select class="form-control" name="color-choice" id="color-choice"
-                        placeholder="This is a placeholder" multiple>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                    <option value="F">F</option>
-                    <option value="G">G</option>
-                    <option value="H">H</option>
-                    <option value="I">I</option>
-                    <option value="J">J</option>
-                    <option value="K">K</option>
-                    <option value="L">L</option>
-                    <option value="M">M</option>
-                    <option value="N">N</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-lg-12 col-md-12">
-            <div class="mb-12">
-                <label for="clarity-choice" class="form-label font-size-13 text-muted">Clarity</label>
-                <select class="form-control" name="clarity-choice" id="clarity-choice"
-                        placeholder="This is a placeholder" multiple>
-                    <option value="FL">FL</option>
-                    <option value="IF">IF</option>
-                    <option value="VVS1">VVS1</option>
-                    <option value="VVS2">VVS2</option>
-                    <option value="SI1">SI1</option>
-                    <option value="SI2">SI2</option>
-                    <option value="SI3">SI3</option>
-                    <option value="I1">I1</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-lg-12 col-md-12">
-            <div class="mb-12">
-                <label for="cert-choice" class="form-label font-size-13 text-muted">Certificate</label>
-                <select class="form-control" name="cert-choice" id="cert-choice"
-                        placeholder="This is a placeholder" multiple>
-                    <option value="FM">FM</option>
-                    <option value="GIA">GIA</option>
-                    <option value="HRD">HRD</option>
-                    <option value="IGI">IGI</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="col-lg-12 col-md-12">
-            <div class="mb-12">
-                <label for="fluorescence-choice" class="form-label font-size-13 text-muted">Fluorescence</label>
-                <select class="form-control" name="fluorescence-choice" id="fluorescence-choice"
-                        placeholder="This is a placeholder" multiple>
-                    <option value="NONE">NONE</option>
-                    <option value="FNT">FNT</option>
-                    <option value="VSL">VSL</option>
-                    <option value="MED">MED</option>
-                    <option value="SL">SL</option>
-                    <option value="STG">STG</option>
-                    <option value="VST">VST</option>
-                </select>
-            </div>
-        </div>
-        <div class="mb-3 row">
-            <label for="example-number-input" class="col-md-2 col-form-label">Carat</label>
-            <div class="col-md-5">
-                <input class="form-control" type="number" value="" placeholder="From" id="carat-from">
-            </div>
-            <div class="col-md-5">
-                <input class="form-control" type="number" value="" placeholder="To" id="carat-to">
-            </div>
-        </div>
-
-        <div class="mb-3 row">
-            <label for="example-number-input" class="col-md-2 col-form-label">Price</label>
-            <div class="col-md-5">
-                <input class="form-control" type="number" value="" placeholder="From" id="price-from">
-            </div>
-            <div class="col-md-5">
-                <input class="form-control" type="number" value="" placeholder="To" id="price-to">
-            </div>
-        </div>
-        <div class="mb-3 row">
-            <div class="mt-4">
-                <button onclick="search()" type="submit" class="btn btn-primary w-md">Search</button>
-            </div>
-        </div>
-        
-    </div>
-    <!-- end row -->
-    <div class="col-lg-12">
+    <div class="col-xl-12">
         <div class="card">
-            <div class="card-header">
-                <h4 class="card-title mb-0">Pagination</h4>
-            </div><!-- end card header -->
             <div class="card-body">
-                <div id="table-pagination"></div>
+
+                <div class="row">
+                    <div class="row">
+                        <div class="mb-3 row">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="mb-12">
+                                    <label for="shape-choice" class="form-label font-size-13 text-muted">Shape</label>
+                                    <select class="form-control" name="shape-choice" id="shape-choice"
+                                            placeholder="This is a placeholder" multiple>
+                                        <option value="ROUND">ROUND</option>
+                                        <option value="PRINCESS">PRINCESS</option>
+                                        <option value="PEAR">PEAR</option>
+                                        <option value="MARQUISE">MARQUISE</option>
+                                        <option value="EMERALD">EMERALD</option>
+                                        <option value="CUSHION">CUSHION</option>
+                                        <option value="OVAL">OVAL</option>
+                                        <option value="RADIANT">RADIANT</option>
+                                        <option value="SQ EMERALD">SQ EMERALD</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="mb-12">
+                                    <label for="color-choice" class="form-label font-size-13 text-muted">Color</label>
+                                    <select class="form-control" name="color-choice" id="color-choice"
+                                            placeholder="This is a placeholder" multiple>
+                                        <option value="D">D</option>
+                                        <option value="E">E</option>
+                                        <option value="F">F</option>
+                                        <option value="G">G</option>
+                                        <option value="H">H</option>
+                                        <option value="I">I</option>
+                                        <option value="J">J</option>
+                                        <option value="K">K</option>
+                                        <option value="L">L</option>
+                                        <option value="M">M</option>
+                                        <option value="N">N</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="mb-12">
+                                    <label for="clarity-choice"
+                                           class="form-label font-size-13 text-muted">Clarity</label>
+                                    <select class="form-control" name="clarity-choice" id="clarity-choice"
+                                            placeholder="This is a placeholder" multiple>
+                                        <option value="FL">FL</option>
+                                        <option value="IF">IF</option>
+                                        <option value="VVS1">VVS1</option>
+                                        <option value="VVS2">VVS2</option>
+                                        <option value="SI1">SI1</option>
+                                        <option value="SI2">SI2</option>
+                                        <option value="SI3">SI3</option>
+                                        <option value="I1">I1</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="mb-12">
+                                    <label for="cert-choice"
+                                           class="form-label font-size-13 text-muted">Certificate</label>
+                                    <select class="form-control" name="cert-choice" id="cert-choice"
+                                            placeholder="This is a placeholder" multiple>
+                                        <option value="FM">FM</option>
+                                        <option value="GIA">GIA</option>
+                                        <option value="HRD">HRD</option>
+                                        <option value="IGI">IGI</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="mb-12">
+                                    <label for="fluorescence-choice"
+                                           class="form-label font-size-13 text-muted">Fluorescence</label>
+                                    <select class="form-control" name="fluorescence-choice" id="fluorescence-choice"
+                                            placeholder="This is a placeholder" multiple>
+                                        <option value="NONE">NONE</option>
+                                        <option value="FNT">FNT</option>
+                                        <option value="VSL">VSL</option>
+                                        <option value="MED">MED</option>
+                                        <option value="SL">SL</option>
+                                        <option value="STG">STG</option>
+                                        <option value="VST">VST</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="mb-12">
+                                    <label for="cut-choice"
+                                           class="form-label font-size-13 text-muted">Cut</label>
+                                    <select class="form-control" name="cut-choice" id="cut-choice"
+                                            placeholder="This is a placeholder" multiple>
+                                        <option value="3EX">3EX</option>
+                                        <option value="EX">EX</option>
+                                        <option value="VG">VG</option>
+                                        <option value="GD">GD</option>
+                                        <option value="FR">FR</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="mb-12">
+                                    <label for="polish-choice"
+                                           class="form-label font-size-13 text-muted">Polish</label>
+                                    <select class="form-control" name="polish-choice" id="polish-choice"
+                                            placeholder="This is a placeholder" multiple>
+                                        <option value="EX">EX</option>
+                                        <option value="VG">VG</option>
+                                        <option value="GD">GD</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="mb-12">
+                                    <label for="symmetry-choice"
+                                           class="form-label font-size-13 text-muted">Symmetry</label>
+                                    <select class="form-control" name="symmetry-choice" id="symmetry-choice"
+                                            placeholder="This is a placeholder" multiple>
+                                        <option value="EX">EX</option>
+                                        <option value="VG">VG</option>
+                                        <option value="GD">GD</option>
+                                        <option value="FR">FR</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="example-number-input" class="col-md-2 col-form-label">Carat</label>
+                            <div class="col-md-5">
+                                <input class="form-control" type="number" value="" placeholder="From" id="carat-from">
+                            </div>
+                            <div class="col-md-5">
+                                <input class="form-control" type="number" value="" placeholder="To" id="carat-to">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="example-number-input" class="col-md-2 col-form-label">Price</label>
+                            <div class="col-md-5">
+                                <input class="form-control" type="number" value="" placeholder="From" id="price-from">
+                            </div>
+                            <div class="col-md-5">
+                                <input class="form-control" type="number" value="" placeholder="To" id="price-to">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <div class="mt-4">
+                                <button onclick="search()" type="submit" class="btn btn-primary w-md">Search</button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- end row -->
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title mb-0">Pagination</h4>
+                            </div><!-- end card header -->
+                            <div class="card-body">
+                                <div id="table-pagination"></div>
+                            </div>
+                            <!-- end card body -->
+                        </div>
+                        <!-- end card -->
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+
             </div>
-            <!-- end card body -->
         </div>
-        <!-- end card -->
     </div>
-    <!-- end col -->
 </div>
 <!-- end row -->
 
-<!-- end row -->
 <%- contentFor('FooterJs') %>
 <!-- gridjs js -->
 <script src="/assets/libs/gridjs/gridjs.umd.js"></script>
@@ -169,6 +236,9 @@
         var clarities = clarityChoice.getValue().map((x) => x.value);
         var certs = certChoice.getValue().map((x) => x.value);
         var fluorescences = fluorescenceChoice.getValue().map((x) => x.value);
+        var cut = cutChoice.getValue().map((x) => x.value);
+        var polish = polishChoice.getValue().map((x) => x.value);
+        var symmetry = symmetryChoice.getValue().map((x) => x.value);
 
         var data = {
             "shapes": shapes,
@@ -176,6 +246,9 @@
             "clarities": clarities,
             "certs": certs,
             "fluorescences": fluorescences,
+            "cut": cut,
+            "polish": polish,
+            "symmetry": symmetry,
             "carat": {
                 "from": document.getElementById("carat-from").value,
                 "to": document.getElementById("carat-to").value,
@@ -222,10 +295,11 @@
                 formatter: (cell, row) => certificateFormatter(cell, row)
 
             },
-            "CUT", "POL", "SYM", "FLUOR", "MEASUREMENT", "PRICE/Ct (€)", "PRICE (€)"],
+            "CUT", "POL", "SYM", "FLUOR", "PRICE/Ct (€)", "PRICE (€)"],
         pagination: {limit: 30},
 
-        data: <%- data %>
+        data: <%- data %>,
+        sort: true
     }).render(document.getElementById("table-pagination"));
     // text inputs example
     var shapeChoice = new Choices(
@@ -258,6 +332,27 @@
     );
     var fluorescenceChoice = new Choices(
         '#fluorescence-choice',
+        {
+            removeItemButton: true,
+            shouldSort: false
+        }
+    );
+    var cutChoice = new Choices(
+        '#cut-choice',
+        {
+            removeItemButton: true,
+            shouldSort: false
+        }
+    );
+    var polishChoice = new Choices(
+        '#polish-choice',
+        {
+            removeItemButton: true,
+            shouldSort: false
+        }
+    );
+    var symmetryChoice = new Choices(
+        '#symmetry-choice',
         {
             removeItemButton: true,
             shouldSort: false
