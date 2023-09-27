@@ -181,10 +181,10 @@ module.exports = function (route) {
                     if (search.carat.to.length && search.carat.to < Number(row["CARAT"])) {
                         return;
                     }
-                    if (search.price.from.length && search.price.from > Number(row["VALUE"] * 1.2)) {
+                    if (search.price.from.length && search.price.from > Number(row["VALUE"] * 1.3)) {
                         return;
                     }
-                    if (search.price.to.length && search.price.to < Number(row["VALUE"] * 1.2)) {
+                    if (search.price.to.length && search.price.to < Number(row["VALUE"] * 1.3)) {
                         return;
                     }
                 }
@@ -218,8 +218,13 @@ module.exports = function (route) {
                 r.push(row["POL"]);
                 r.push(row["SYM"]);
                 r.push(row["FLUOR"]);
-                r.push(Math.round(row["PRICE"] * 1.2));
-                r.push(Math.round(row["VALUE"] * 1.2));
+                var price = row["PRICE"] * 1.3;
+                r.push(Math.round(((price + Number.EPSILON) * 100) / 100));
+                var value = row["VALUE"] * 1.3
+                r.push(Math.round(((value + Number.EPSILON) * 100) / 100));
+                r.push(row["RAP V"]);
+                var disc =100 - (value * 100 / row["RAP V"]);
+                r.push(Math.round(((disc + Number.EPSILON) * 100) / 100));
 
                 result.push(r)
                 //}
