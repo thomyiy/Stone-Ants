@@ -63,7 +63,7 @@ module.exports = function (route) {
 
     // Auth
     route.get('/login', (req, res, next) => {
-        res.render('Auth/login', {
+        res.render('auth/login', {
             title: 'Login',
             layout: 'layout/layout-without-nav',
             'message': req.flash('message'),
