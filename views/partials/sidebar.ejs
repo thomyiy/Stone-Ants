@@ -8,13 +8,13 @@
         <img src="/assets/images/logo-sm.svg" alt="" height="22">
       </span>
       <span class="logo-lg">
-        <span class="logo-txt">StoneAnts</span>
+        <span class="logo-txt">RAW Stones</span>
       </span>
     </a>
 
     <a href="/index" class="logo logo-light">
       <span class="logo-lg">
-        <span class="logo-txt">StoneAnts</span>
+        <span class="logo-txt">RAW Stones</span>
       </span>
 
     </a>
@@ -44,6 +44,21 @@
             <span class="menu-item" data-key="t-dashboards">Stones</span>
           </a>
         </li>
+        <script>console.log("<%= role  %>");</script>
+        <% if(role == "Admin") { %>
+          <li>
+            <a href="/importer">
+              <i class="bx bx-tachometer icon nav-icon"></i>
+              <span class="menu-item" data-key="t-dashboards">Importer</span>
+            </a>
+          </li>
+          <li>
+            <a href="/stone-request">
+              <i class="bx bx-tachometer icon nav-icon"></i>
+              <span class="menu-item" data-key="t-dashboards">Stone requests</span>
+            </a>
+          </li>
+        <% } %>
       </ul>
     </div>
     <!-- Sidebar -->

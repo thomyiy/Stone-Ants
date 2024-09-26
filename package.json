@@ -41,16 +41,19 @@
     "moment": "2.24.0",
     "node-cron": "^3.0.2",
     "node-waves": "0.7.6",
+    "node-xlsx": "^0.24.0",
     "nouislider": "15.7.0",
     "quill": "1.3.7",
     "rater-js": "1.0.1",
+    "read-excel-file": "^5.8.5",
     "rtlcss": "4.0.0",
     "save": "2.9.0",
     "simplebar": "6.2.2",
     "sweetalert2": "11.7.3",
     "swiper": "9.1.1",
     "tinymce": "6.4.0",
-    "wnumb": "1.2.0"
+    "wnumb": "1.2.0",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "bcryptjs": "2.4.3",

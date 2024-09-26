@@ -68,6 +68,8 @@
                                         <option value="IF">IF</option>
                                         <option value="VVS1">VVS1</option>
                                         <option value="VVS2">VVS2</option>
+                                        <option value="VS1">VS1</option>
+                                        <option value="VS2">VS2</option>
                                         <option value="SI1">SI1</option>
                                         <option value="SI2">SI2</option>
                                         <option value="SI3">SI3</option>
@@ -166,9 +168,14 @@
                                 <input class="form-control" type="number" value="" placeholder="To" id="price-to">
                             </div>
                         </div>
-                        <div class="mb-3 row">
-                            <div class="mt-4">
+                        <div class="mb-12 row">
+                            <div class="col-md-1">
                                 <button onclick="search()" type="submit" class="btn btn-primary w-md">Search</button>
+                            </div>
+                            <div class="col-md-2">
+                                <button onclick="book()" type="submit" class="btn btn-primary w-md">Book selected
+                                    stones
+                                </button>
                             </div>
                         </div>
 
@@ -210,17 +217,52 @@
 <!-- datepicker js -->
 <script src="/assets/libs/flatpickr/flatpickr.min.js"></script>
 <script>
+
+    var rowSelected = []
+
+    function toggleCheckbox(element,id) {
+        //element.checked = !element.checked;
+        console.log(id);
+        /*for (var i = 0; i < grid.config.data.length; i++) {
+
+            if (grid.config.store.state.data.rows[i]&&grid.config.store.state.data.rows[i].id === element.id) {
+                console.log("id : "+grid.config.store.state.data.rows[i]._id);
+
+            }
+        }*/
+        if (element.checked)
+            rowSelected.push(id);
+        else {
+            const index = rowSelected.indexOf(id);
+            if (index > -1) { // only splice array when item is found
+                rowSelected.splice(index, 1); // 2nd parameter means remove one item only
+            }
+        }
+
+        console.log(rowSelected)
+    }
+
+    function book() {
+
+        var data = {stones: rowSelected}
+        console.log(data)
+
+        fetch('bookstones', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            }
+        })
+            .then(function (response) {
+                return response.json()
+            })
+            .then(function (data) {
+                console.log(data)
+            }).catch(error => console.log('Error:', error));
+    }
+
     function search() {
-        /*console.log("search");
-        console.log(shapeChoice.getValue())
-        console.log(colorChoice.getValue())
-        console.log(clarityChoice.getValue())
-        console.log(certChoice.getValue())
-        console.log(fluorescenceChoice.getValue())
-        console.log(document.getElementById("carat-from").value)
-        console.log(document.getElementById("carat-to").value)
-        console.log(document.getElementById("price-from").value)
-        console.log(document.getElementById("price-to").value)*/
 
         var shapes = shapeChoice.getValue().map((x) => x.value);
         var colors = colorChoice.getValue().map((x) => x.value);
@@ -262,36 +304,12 @@
             })
             .then(function (data) {
                 grid.updateConfig({
-                    data: data
+                    data: data.map((e) => [e.StockRef,e.Cert,e.Shape,e.Size,e.DispColor,e.DispClarity,e.Cut,e.Polish,e.Sym,e.Flour,e.RapRate,e.PPC,e.Total])
                 }).forceRender();
             }).catch(error => console.log('Error:', error));
 
-        console.log(data);
     }
 
-    function certificateFormatter(cell, row) {
-        if (row.cells[5].data === "GIA")
-            return gridjs.html(`<a href="https://www.gia.edu/report-check?reportno=${cell}" target="_blank">${cell}</a>`);
-        else if (row.cells[5].data === "HRD")
-            return gridjs.html(`<a href="https://my.hrdantwerp.com/" target="_blank">${cell}</a>`);
-        else if (row.cells[5].data === "IGI")
-            return gridjs.html(`<a href="https://www.igi.org/reports/verify-your-report?r=${cell}" target="_blank">${cell}</a>`);
-        return cell;
-    }
-
-    var grid = new gridjs.Grid({
-        columns: ["STOCKID", "SHAPE", "CARAT", "COLOR", "CLARITY", "CERT",
-            {
-                name: 'CERTNO',
-                formatter: (cell, row) => certificateFormatter(cell, row)
-
-            },
-            "CUT", "POL", "SYM", "FLUOR", "PRICE/Ct", "PRICE","RAP PRICE","DISC (%)"],
-        pagination: {limit: 30},
-
-        data: <%- data %>,
-        sort: true
-    }).render(document.getElementById("table-pagination"));
     // text inputs example
     var shapeChoice = new Choices(
         '#shape-choice',
@@ -349,4 +367,28 @@
             shouldSort: false
         }
     );
+
+    var grid = new gridjs.Grid({
+        columns: ["StockRef", "Cert", "Shape", "Size", "DispColor", "DispClarity", "Cut", "Polish", "Sym", "Flour", "RapRate", "PPC", "Total",
+            {
+                name: 'SELECT',
+                formatter: (cell, row) => gridjs.html(`<input type="checkbox" onchange="toggleCheckbox(this,'${cell}')" value="false" class="checkbox" id="${cell}">`)
+
+            }],
+        pagination: {limit: 30},
+        data: async () => {
+            var data = await fetch("/stones/getAll", {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+            })
+                .then((response) => {
+                    return response.json()
+                });
+
+            return data.map((e) => [e.StockRef,e.Cert,e.Shape,e.Size,e.DispColor,e.DispClarity,e.Cut,e.Polish,e.Sym,e.Flour,e.RapRate,e.PPC,e.Total,e._id]);
+        },
+        sort: true
+    }).render(document.getElementById("table-pagination"));
 </script>

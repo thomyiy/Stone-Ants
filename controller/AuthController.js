@@ -28,14 +28,14 @@ const validate = async (req, res) => {
             return res.redirect('/login');
         }
 
-        // Set current user data in session 
+        // Set current user data in session
         const usersession = req.session;
         usersession.userid = currentUser._id;
         usersession.username = currentUser.name;
         usersession.useremail = currentUser.email;
+        usersession.role = currentUser.role;
         return res.redirect('/');
     });
-
 }
 
 // registration

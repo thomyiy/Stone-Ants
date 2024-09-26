@@ -1,0 +1,146 @@
+<%- contentFor('HeaderCss') %>
+<%- include("partials/title-meta", {"title": "Stones"}) %>
+<link href="/assets/libs/choices.js/public/assets/styles/choices.min.css" rel="stylesheet" type="text/css"/>
+
+<!-- color picker css -->
+<link rel="stylesheet" href="/assets/libs/@simonwep/pickr/themes/classic.min.css"/> <!-- 'classic' theme -->
+<link rel="stylesheet" href="/assets/libs/@simonwep/pickr/themes/monolith.min.css"/> <!-- 'monolith' theme -->
+<link rel="stylesheet" href="/assets/libs/@simonwep/pickr/themes/nano.min.css"/> <!-- 'nano' theme -->
+<link rel="stylesheet" href="/assets/libs/gridjs/theme/mermaid.min.css">
+
+<!-- datepicker css -->
+<link rel="stylesheet" href="/assets/libs/flatpickr/flatpickr.min.css">
+<%- contentFor('body') %>
+<%- include("partials/page-title", {"pagetitle": "RAW", "title": "Importer !"}) %>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="row">
+                        <div class="mb-12 row">
+                            <div class="col-md-12">
+                                <form action="/import" method="post" enctype="multipart/form-data">
+                                    <div class="mt-12 text-end">
+                                        <input name="file" type="file" multiple accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required>
+                                        <button class="btn btn-primary w-sm waves-effect waves-light" type="submit">
+                                            Import
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end row -->
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title mb-0">Pagination</h4>
+                            </div><!-- end card header -->
+                            <div class="card-body">
+                                <div id="table-pagination"></div>
+                            </div>
+                            <!-- end card body -->
+                        </div>
+                        <!-- end card -->
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+
+<%- contentFor('FooterJs') %>
+<!-- gridjs js -->
+<script src="/assets/libs/gridjs/gridjs.umd.js"></script>
+
+
+<script src="/assets/libs/choices.js/public/assets/scripts/choices.min.js"></script>
+
+<!-- color picker js -->
+<script src="/assets/libs/@simonwep/pickr/pickr.min.js"></script>
+<script src="/assets/libs/@simonwep/pickr/pickr.es5.min.js"></script>
+
+<!-- datepicker js -->
+<script src="/assets/libs/flatpickr/flatpickr.min.js"></script>
+<script>
+
+    /*var grid = new gridjs.Grid({
+        columns: ["STOCKID", "SHAPE", "CARAT", "COLOR", "CLARITY", "CERT",
+            {
+                name: 'CERTNO',
+                formatter: (cell, row) => certificateFormatter(cell, row)
+
+            },
+            "CUT", "POL", "SYM", "FLUOR", "PRICE/Ct", "PRICE", "RAP PRICE", "DISC (%)",
+            {
+                name: 'SELECT',
+                formatter: (cell, row) => gridjs.html(`<input type="checkbox" onchange="toggleCheckbox(this)" value="false" class="checkbox" id="${row.id}">`)
+
+            }],
+        pagination: {limit: 30},
+
+        data: ,
+        sort: true
+    }).render(document.getElementById("table-pagination"));
+    // text inputs example
+    var shapeChoice = new Choices(
+        '#shape-choice',
+        {
+            removeItemButton: true,
+            shouldSort: false
+        }
+    );
+    var colorChoice = new Choices(
+        '#color-choice',
+        {
+            removeItemButton: true,
+            shouldSort: false
+        }
+    );
+    var clarityChoice = new Choices(
+        '#clarity-choice',
+        {
+            removeItemButton: true,
+            shouldSort: false
+        }
+    );
+    var certChoice = new Choices(
+        '#cert-choice',
+        {
+            removeItemButton: true,
+            shouldSort: false
+        }
+    );
+    var fluorescenceChoice = new Choices(
+        '#fluorescence-choice',
+        {
+            removeItemButton: true,
+            shouldSort: false
+        }
+    );
+    var cutChoice = new Choices(
+        '#cut-choice',
+        {
+            removeItemButton: true,
+            shouldSort: false
+        }
+    );
+    var polishChoice = new Choices(
+        '#polish-choice',
+        {
+            removeItemButton: true,
+            shouldSort: false
+        }
+    );
+    var symmetryChoice = new Choices(
+        '#symmetry-choice',
+        {
+            removeItemButton: true,
+            shouldSort: false
+        }
+    );*/
+</script>

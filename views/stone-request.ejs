@@ -1,0 +1,84 @@
+<%- contentFor('HeaderCss') %>
+<%- include("partials/title-meta", {"title": "Stones"}) %>
+<link href="/assets/libs/choices.js/public/assets/styles/choices.min.css" rel="stylesheet" type="text/css"/>
+
+<!-- color picker css -->
+<link rel="stylesheet" href="/assets/libs/@simonwep/pickr/themes/classic.min.css"/> <!-- 'classic' theme -->
+<link rel="stylesheet" href="/assets/libs/@simonwep/pickr/themes/monolith.min.css"/> <!-- 'monolith' theme -->
+<link rel="stylesheet" href="/assets/libs/@simonwep/pickr/themes/nano.min.css"/> <!-- 'nano' theme -->
+<link rel="stylesheet" href="/assets/libs/gridjs/theme/mermaid.min.css">
+
+<!-- datepicker css -->
+<link rel="stylesheet" href="/assets/libs/flatpickr/flatpickr.min.css">
+<%- contentFor('body') %>
+<%- include("partials/page-title", {"pagetitle": "RAW", "title": "Stone requests !"}) %>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title mb-0">Pagination</h4>
+                            </div><!-- end card header -->
+                            <div class="card-body">
+                                <div id="table-pagination"></div>
+                            </div>
+                            <!-- end card body -->
+                        </div>
+                        <!-- end card -->
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+
+<%- contentFor('FooterJs') %>
+<!-- gridjs js -->
+<script src="/assets/libs/gridjs/gridjs.umd.js"></script>
+
+
+<script src="/assets/libs/choices.js/public/assets/scripts/choices.min.js"></script>
+
+<!-- color picker js -->
+<script src="/assets/libs/@simonwep/pickr/pickr.min.js"></script>
+<script src="/assets/libs/@simonwep/pickr/pickr.es5.min.js"></script>
+
+<!-- datepicker js -->
+<script src="/assets/libs/flatpickr/flatpickr.min.js"></script>
+<script>
+
+    var grid = new gridjs.Grid({
+        columns: ["user", {
+            name: 'Stones',
+            formatter: (function (cell) {
+                    var html = "<ul>"
+                    cell.forEach((s) => html += "<li>" + s.StockRef + "</li>")
+                    html += "</ul>"
+                    return gridjs.html(html)
+                }
+            )
+        },],
+        pagination: {limit: 30},
+        data: async () => {
+            var data = await fetch("/stone-request/getAll", {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+            })
+                .then((response) => {
+                    return response.json()
+                });
+
+            return data.map((e) => [e.user.email, e.stones]);
+        },
+        sort: true
+    }).render(document.getElementById("table-pagination"));
+</script>
