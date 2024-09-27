@@ -44,17 +44,21 @@ mongoose.connect(DB, {
 }).then((con) => {
     console.log("DB connection successfully..!")
     if (process.env.ADMIN_NAME && process.env.ADMIN_EMAIL && process.env.ADMIN_PASSWORD) {
-        const User = require("./models/UserModel");
-        var formdata = {
-            name: process.env.ADMIN_NAME,
-            email: process.env.ADMIN_EMAIL,
-            password: process.env.ADMIN_PASSWORD,
-            role: "Admin"
-        };
+        try {
+            const User = require("./models/UserModel");
+            var formdata = {
+                name: process.env.ADMIN_NAME,
+                email: process.env.ADMIN_EMAIL,
+                password: process.env.ADMIN_PASSWORD,
+                role: "Admin"
+            };
 
-        User.create(formdata, function (err, res) {
-            console.log(err, res);
-        });
+            User.create(formdata, function (err, res) {
+                console.log(err, res);
+            });
+        }catch (error) {
+            console.error(error.message);
+        }
     }
 });
 
