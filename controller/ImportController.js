@@ -8,71 +8,73 @@ const uuid = require('uuid')
 const xlsx = require('node-xlsx');
 const request = require("request-promise-native");
 
-const importFromXlsx = async (req, res) => {
+const importFromXlsx = (req, res) => {
     let files = req.files.file;
+    console.log(req.files)
     for (let i = 0; i < files.length; i++) {
-        console.log('import')
         const file = files[i];
         const uniqueRandomID = uuid.v4();
         const filePath = uniqueRandomID + path.extname(file.name);
-        console.log("file "+file.name)
+        console.log("file " + file.name)
+        movefile(file, filePath)
 
-        await file.mv("./uploads/" + filePath, async function (err) {
-            if (err)
-                return res.status(500).send(err);
-            console.log("./uploads/" + filePath + " file moved")
-            var obj = xlsx.parse("./uploads/" + filePath);
-            var data = obj[0].data
-            for (let x = 1; x < data.length; x++) {
-                var StockRef = data[x][1]
-                var Cert = data[x][2]
-                var Shape = data[x][3]
-                var Size = data[x][4]
-                var DispColor = data[x][5]
-                var DispClarity = data[x][6]
-                var Cut = data[x][7]
-                var Polish = data[x][8]
-                var Sym = data[x][9]
-                var Flour = data[x][10]
-                var RapRate = data[x][12]
-                var PPC = data[x][13]
-                var Total = data[x][14]
-                var formdata = {
-                    StockRef: StockRef,
-                    Cert: Cert,
-                    Shape: Shape,
-                    Size: parseFloat(Size),
-                    DispColor: DispColor,
-                    DispClarity: DispClarity,
-                    Cut: Cut,
-                    Polish: Polish,
-                    Sym: Sym,
-                    Flour: Flour,
-                    RapRate: parseFloat(RapRate),
-                    PPC: parseFloat(PPC),
-                    Total: parseFloat(Total),
-                }
-
-                /*await Stone.create(formdata, function (err, result) {
-                    if (err)
-                        console.log(err.message);
-                    else {
-                        downloadPDF("https://assets.3dvirtualdiamond.com/certificate/" + StockRef, "./uploads/" + StockRef + ".pdf");
-                    }
-
-                });*/
-
-            }
-
-            fs.unlinkSync("./uploads/" + filePath);
-        });
     }
+}
+
+function movefile(file, filePath) {
+    file.mv("./uploads/" + filePath, function (err) {
+        if (err)
+            console.log(err)
+        console.log("./uploads/" + filePath + " file moved")
+        parsefile(filePath)
+    });
+}
+
+function parsefile(filePath) {
+    var obj = xlsx.parse("./uploads/" + filePath);
+    var d = obj[0].data
+    for (let x = 1; x < d.length; x++) {
+        var data = d[x]
+        createStone(data)
+        var miliseconds = 1000;
+        var currentTime = new Date().getTime();
+        while (currentTime + miliseconds >= new Date().getTime()) {
+        }
+    }
+    fs.unlinkSync("./uploads/" + filePath);
+}
+
+function createStone(data) {
+    var formdata = {
+        StockRef: data[1],
+        Cert: data[2],
+        Shape: data[3],
+        Size: parseFloat(data[4]),
+        DispColor: data[5],
+        DispClarity: data[6],
+        Cut: data[7],
+        Polish: data[8],
+        Sym: data[9],
+        Flour: data[10],
+        RapRate: parseFloat(data[12]),
+        PPC: parseFloat(data[13]),
+        Total: parseFloat(data[14]),
+    }
+    console.log("create stone " + formdata.StockRef)
+
+    Stone.create(formdata, function (err, result) {
+        if (err)
+            console.log(err.message);
+        else {
+            downloadPDF("https://assets.3dvirtualdiamond.com/certificate/" + formdata.StockRef, "./uploads/" + formdata.StockRef + ".pdf");
+        }
+    });
 }
 
 async function downloadPDF(pdfURL, outputFilename) {
     let pdfBuffer = await request.get({uri: pdfURL, encoding: null});
     console.log("Writing downloaded PDF file to " + outputFilename + "...");
-    fs.writeFileSync(outputFilename, pdfBuffer);
+    await fs.writeFileSync(outputFilename, pdfBuffer);
 }
 
 module.exports = {importFromXlsx}
