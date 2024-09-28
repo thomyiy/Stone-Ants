@@ -220,7 +220,7 @@
 
     var rowSelected = []
 
-    function toggleCheckbox(element,id) {
+    function toggleCheckbox(element, id) {
         //element.checked = !element.checked;
         console.log(id);
         /*for (var i = 0; i < grid.config.data.length; i++) {
@@ -304,7 +304,7 @@
             })
             .then(function (data) {
                 grid.updateConfig({
-                    data: data.map((e) => [e.StockRef,e.Cert,e.Shape,e.Size,e.DispColor,e.DispClarity,e.Cut,e.Polish,e.Sym,e.Flour,e.RapRate,e.PPC,e.Total])
+                    data: data.map((e) => [e.StockRef, e.Cert, e.Shape, e.Size, e.DispColor, e.DispClarity, e.Cut, e.Polish, e.Sym, e.Flour, e.RapRate, e.PPC, e.Total])
                 }).forceRender();
             }).catch(error => console.log('Error:', error));
 
@@ -373,7 +373,11 @@
             {
                 name: 'SELECT',
                 formatter: (cell, row) => gridjs.html(`<input type="checkbox" onchange="toggleCheckbox(this,'${cell}')" value="false" class="checkbox" id="${cell}">`)
-
+            },
+            {
+                name: 'SELECT',
+                formatter: (cell, row) => {
+                    return gridjs.html(`<a href="/stones/${cell}">click</a>`)}
             }],
         pagination: {limit: 30},
         data: async () => {
@@ -387,7 +391,7 @@
                     return response.json()
                 });
 
-            return data.map((e) => [e.StockRef,e.Cert,e.Shape,e.Size,e.DispColor,e.DispClarity,e.Cut,e.Polish,e.Sym,e.Flour,e.RapRate,e.PPC,e.Total,e._id]);
+            return data.map((e) => [e.StockRef, e.Cert, e.Shape, e.Size, e.DispColor, e.DispClarity, e.Cut, e.Polish, e.Sym, e.Flour, e.RapRate, e.PPC, e.Total, e._id, e._id]);
         },
         sort: true
     }).render(document.getElementById("table-pagination"));

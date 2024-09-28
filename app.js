@@ -41,24 +41,31 @@ app.use(express.static(__dirname + '/public'));
 const DB = process.env.DATABASE_LOCAL;
 mongoose.connect(DB, {
     useNewUrlParser: true
-}).then((con) => {
+}).then(async (con) => {
     console.log("DB connection successfully..!")
     if (process.env.ADMIN_NAME && process.env.ADMIN_EMAIL && process.env.ADMIN_PASSWORD) {
-        try {
-            const User = require("./models/UserModel");
-            var formdata = {
-                name: process.env.ADMIN_NAME,
-                email: process.env.ADMIN_EMAIL,
-                password: process.env.ADMIN_PASSWORD,
-                role: "Admin"
-            };
+        var user = await User.count({email: process.env.ADMIN_EMAIL})
+        if (user === 0)
+            try {
+                const User = require("./models/UserModel");
+                var formdata = {
+                    name: process.env.ADMIN_NAME,
+                    email: process.env.ADMIN_EMAIL,
+                    password: process.env.ADMIN_PASSWORD,
+                    role: "Admin"
+                };
 
-            User.create(formdata, function (err, res) {
-                console.log(err, res);
-            });
-        }catch (error) {
-            console.error(error.message);
-        }
+                User.create(formdata, function (err, res) {
+                    if (err)
+                        console.log(err);
+                    console.log("Admin user created")
+                });
+
+            } catch (error) {
+                console.error(error.message);
+            }
+        else
+            console.log("Admin user already exist")
     }
 });
 

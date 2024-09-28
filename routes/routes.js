@@ -165,7 +165,6 @@ module.exports = function (route) {
             filters["Total"] = {$lte: parseFloat(req.body.price.to)}
 
 
-
         console.log(filters)
         Stone.find(filters, function (err, result) {
             res.status(200).send(result);
@@ -178,9 +177,8 @@ module.exports = function (route) {
         res.render('auth/auth-500', {title: '500 Error', layout: 'layout/layout-without-nav', role: req.session.role});
     })
 
+
     route.get('/stones', (req, res, next) => {
-
-
         res.render('stones', {
             role: req.session.role
         });
@@ -190,6 +188,14 @@ module.exports = function (route) {
         const stones = await Stone.find({})
         res.send(stones)
     });
+
+    route.get('/stones/:stoneId', async (req, res, next) => {
+        var stone = await Stone.findById(req.params.stoneId)
+        res.render('stone-detail', {
+            data: stone,
+            role: req.session.role
+        });
+    })
 
     route.get('/importer', (req, res, next) => {
         res.render('importer', {

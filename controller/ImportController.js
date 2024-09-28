@@ -6,8 +6,8 @@ const fs = require('fs');
 const path = require("path");
 const uuid = require('uuid')
 const xlsx = require('node-xlsx');
+const request = require("request-promise-native");
 
-// Change password
 const importFromXlsx = async (req, res) => {
     let files = req.files.file;
     for (let i = 0; i < files.length; i++) {
@@ -15,27 +15,28 @@ const importFromXlsx = async (req, res) => {
         const file = files[i];
         const uniqueRandomID = uuid.v4();
         const filePath = uniqueRandomID + path.extname(file.name);
+        console.log("file "+file.name)
 
         await file.mv("./uploads/" + filePath, async function (err) {
             if (err)
                 return res.status(500).send(err);
-
+            console.log("./uploads/" + filePath + " file moved")
             var obj = xlsx.parse("./uploads/" + filePath);
             var data = obj[0].data
-            for (i = 1; i < data.length; i++) {
-                var StockRef = data[i][1]
-                var Cert = data[i][2]
-                var Shape = data[i][3]
-                var Size = data[i][4]
-                var DispColor = data[i][5]
-                var DispClarity = data[i][6]
-                var Cut = data[i][7]
-                var Polish = data[i][8]
-                var Sym = data[i][9]
-                var Flour = data[i][10]
-                var RapRate = data[i][12]
-                var PPC = data[i][13]
-                var Total = data[i][14]
+            for (let x = 1; x < data.length; x++) {
+                var StockRef = data[x][1]
+                var Cert = data[x][2]
+                var Shape = data[x][3]
+                var Size = data[x][4]
+                var DispColor = data[x][5]
+                var DispClarity = data[x][6]
+                var Cut = data[x][7]
+                var Polish = data[x][8]
+                var Sym = data[x][9]
+                var Flour = data[x][10]
+                var RapRate = data[x][12]
+                var PPC = data[x][13]
+                var Total = data[x][14]
                 var formdata = {
                     StockRef: StockRef,
                     Cert: Cert,
@@ -52,15 +53,26 @@ const importFromXlsx = async (req, res) => {
                     Total: parseFloat(Total),
                 }
 
-                Stone.create(formdata, function (err, result) {
+                /*await Stone.create(formdata, function (err, result) {
                     if (err)
                         console.log(err.message);
-                });
+                    else {
+                        downloadPDF("https://assets.3dvirtualdiamond.com/certificate/" + StockRef, "./uploads/" + StockRef + ".pdf");
+                    }
+
+                });*/
+
             }
 
             fs.unlinkSync("./uploads/" + filePath);
         });
     }
+}
+
+async function downloadPDF(pdfURL, outputFilename) {
+    let pdfBuffer = await request.get({uri: pdfURL, encoding: null});
+    console.log("Writing downloaded PDF file to " + outputFilename + "...");
+    fs.writeFileSync(outputFilename, pdfBuffer);
 }
 
 module.exports = {importFromXlsx}

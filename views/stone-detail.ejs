@@ -1,0 +1,213 @@
+<%- contentFor('HeaderCss') %>
+
+<%- include("partials/title-meta", {"title": "Stone Detail"}) %>
+<!-- swiper css -->
+<link rel="stylesheet" href="/assets/libs/swiper/swiper-bundle.min.css">
+<%- contentFor('body') %>
+<%- include("partials/page-title", {"pagetitle": "RAW Stones", "title": "Stone Detail"}) %>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-xl-4">
+                        <div class="product-detail" dir="ltr">
+                            <div class="swiper product-thumbnail-slider rounded border overflow-hidden position-relative">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide"><img src="/assets/images/product/img-1.png"
+                                                                   class="img-fluid d-block"/></div>
+                                    <div class="swiper-slide"><img src="/assets/images/product/img-2.png"
+                                                                   class="img-fluid d-block"/></div>
+                                    <div class="swiper-slide"><img src="/assets/images/product/img-3.png"
+                                                                   class="img-fluid d-block"/></div>
+                                    <div class="swiper-slide"><img src="/assets/images/product/img-6.png"
+                                                                   class="img-fluid d-block"/></div>
+                                    <div class="swiper-slide"><img src="/assets/images/product/img-5.png"
+                                                                   class="img-fluid d-block"/></div>
+                                </div>
+
+                                <div class="d-none d-md-block">
+                                    <div class="swiper-button-next"></div>
+                                    <div class="swiper-button-prev"></div>
+                                </div>
+                            </div>
+
+                            <div class="mt-4">
+                                <div thumbsSlider="" class="swiper product-nav-slider mt-2 overflow-hidden">
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide rounded">
+                                            <div class="nav-slide-item"><img src="/assets/images/product/img-1.png"
+                                                                             class="img-fluid d-block"/></div>
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <div class="nav-slide-item"><img src="/assets/images/product/img-2.png"
+                                                                             class="img-fluid d-block"/></div>
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <div class="nav-slide-item"><img src="/assets/images/product/img-3.png"
+                                                                             class="img-fluid d-block"/></div>
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <div class="nav-slide-item"><img src="/assets/images/product/img-6.png"
+                                                                             class="img-fluid d-block"/></div>
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <div class="nav-slide-item"><img src="/assets/images/product/img-5.png"
+                                                                             class="img-fluid d-block"/></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-8">
+                        <div class="mt-4 mt-xl-3 ps-xl-4">
+                            <h5 class="font-size-14"><a href="#" class="text-muted">Nike</a></h5>
+                            <h4 class="font-size-20 mb-3"><%= data.StockRef %></h4>
+                            <div>
+                                <div class="col-md-8">
+                                    <div class="product-desc">
+                                        <div class="tab-content border p-4">
+                                            <table class="table table-nowrap mb-0">
+                                                <tbody>
+                                                <tr>
+                                                    <th scope="row" style="width: 50%;"><b>Certificate :</b></th>
+                                                    <td><%= data.Cert %></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"><b>Shape :</b></th>
+                                                    <td><%= data.Shape %></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"><b>Size :</b></th>
+                                                    <td><%= data.Size %></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"><b>Color :</b></th>
+                                                    <td><%= data.DispColor %></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"><b>Clarity :</b></th>
+                                                    <td><%= data.DispClarity %></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"><b>Cut :</b></th>
+                                                    <td><%= data.Cut %></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"><b>Polish :</b></th>
+                                                    <td><%= data.Polish %></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"><b>Symmetry :</b></th>
+                                                    <td><%= data.Sym %></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"><b>Fluorescence :</b></th>
+                                                    <td><%= data.Flour %></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"><b>RapRate :</b></th>
+                                                    <td><%= data.RapRate %></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"><b>PPC :</b></th>
+                                                    <td><%= data.PPC %></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"><b>Total :</b></th>
+                                                    <td><%= data.Total %></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+<!-- sample modal content -->
+<div id="color-img" class="modal fade" tabindex="-1" aria-labelledby="color-imgLabel" aria-hidden="true"
+     data-bs-scroll="true">
+    <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="color-imgLabel">Product Images</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="product-desc-color">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item">
+                            <a href="#" class="active" data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                               data-bs-original-title="Gray">
+                                <div class="product-color-item">
+                                    <img src="/assets/images/product/img-1.png" alt="" class="avatar-md">
+                                </div>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                               data-bs-original-title="Dark">
+                                <div class="product-color-item">
+                                    <img src="/assets/images/product/img-2.png" alt="" class="avatar-md">
+                                </div>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                               data-bs-original-title="Purple">
+                                <div class="product-color-item">
+                                    <img src="/assets/images/product/img-3.png" alt="" class="avatar-md">
+                                </div>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                               data-bs-original-title="Sky">
+                                <div class="product-color-item">
+                                    <img src="/assets/images/product/img-4.png" alt="" class="avatar-md">
+                                </div>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                               data-bs-original-title="Green">
+                                <div class="product-color-item">
+                                    <img src="/assets/images/product/img-5.png" alt="" class="avatar-md">
+                                </div>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                               data-bs-original-title="White">
+                                <div class="product-color-item">
+                                    <img src="/assets/images/product/img-6.png" alt="" class="avatar-md">
+                                </div>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<%- contentFor('FooterJs') %>
+<!-- swiper js -->
+<script src="/assets/libs/swiper/swiper-bundle.min.js"></script>
+
+<script src="/assets/js/pages/ecommerce-product-detail.init.js"></script>
+<script> console.log("<%= data %>")</script>
