@@ -11,6 +11,7 @@ const csv = require("csv-parser");
 var nodemailer = require('nodemailer');
 const ImportController = require("../controller/ImportController");
 const StoneController = require("../controller/StoneController");
+const PostController = require("../controller/PostController");
 
 module.exports = function (route) {
     route.use((req, res, next) => {
@@ -242,4 +243,6 @@ module.exports = function (route) {
     route.get('/stonevideo360/:stoneId', StoneController.getStoneVideo360)
     route.get('/stoneplotting/:stoneId', StoneController.getStonePlotting)
     route.get('/stoneproportion/:stoneId', StoneController.getStoneProportion)
+
+    route.get('/generatepost', PostController.generatePost)
 }
