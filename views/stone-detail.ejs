@@ -14,16 +14,16 @@
                         <div class="product-detail" dir="ltr">
                             <div class="swiper product-thumbnail-slider rounded border overflow-hidden position-relative">
                                 <div class="swiper-wrapper">
-                                    <div class="swiper-slide"><img src="/assets/images/product/img-1.png"
+                                    <div class="swiper-slide"><video loop autoplay="true"
+                                                                     muted="muted" id="video360"
                                                                    class="img-fluid d-block"/></div>
-                                    <div class="swiper-slide"><img src="/assets/images/product/img-2.png"
+                                    <div class="swiper-slide"><img id="plotting"
                                                                    class="img-fluid d-block"/></div>
-                                    <div class="swiper-slide"><img src="/assets/images/product/img-3.png"
+                                    <div class="swiper-slide"><img id="proportion"
                                                                    class="img-fluid d-block"/></div>
-                                    <div class="swiper-slide"><img src="/assets/images/product/img-6.png"
-                                                                   class="img-fluid d-block"/></div>
-                                    <div class="swiper-slide"><img src="/assets/images/product/img-5.png"
-                                                                   class="img-fluid d-block"/></div>
+                                    <div class="swiper-slide"><embed id="certificate" height="300px"
+                                                                     width="100%"
+                                                                   class="d-block" type="application/pdf"/></div>
                                 </div>
 
                                 <div class="d-none d-md-block">
@@ -36,23 +36,20 @@
                                 <div thumbsSlider="" class="swiper product-nav-slider mt-2 overflow-hidden">
                                     <div class="swiper-wrapper">
                                         <div class="swiper-slide rounded">
-                                            <div class="nav-slide-item"><img src="/assets/images/product/img-1.png"
+                                            <div class="nav-slide-item"><img id="thumbnailVideo360"
                                                                              class="img-fluid d-block"/></div>
                                         </div>
                                         <div class="swiper-slide">
-                                            <div class="nav-slide-item"><img src="/assets/images/product/img-2.png"
+                                            <div class="nav-slide-item"><img id="thumbnailPlotting"
                                                                              class="img-fluid d-block"/></div>
                                         </div>
                                         <div class="swiper-slide">
-                                            <div class="nav-slide-item"><img src="/assets/images/product/img-3.png"
+                                            <div class="nav-slide-item"><img id="thumbnailProportion"
                                                                              class="img-fluid d-block"/></div>
                                         </div>
                                         <div class="swiper-slide">
-                                            <div class="nav-slide-item"><img src="/assets/images/product/img-6.png"
-                                                                             class="img-fluid d-block"/></div>
-                                        </div>
-                                        <div class="swiper-slide">
-                                            <div class="nav-slide-item"><img src="/assets/images/product/img-5.png"
+                                            <div class="nav-slide-item"><img height="100%"
+                                                width="100%" id="thumbnailCertificate" src="/assets/images/certificate.svg"
                                                                              class="img-fluid d-block"/></div>
                                         </div>
                                     </div>
@@ -210,4 +207,138 @@
 <script src="/assets/libs/swiper/swiper-bundle.min.js"></script>
 
 <script src="/assets/js/pages/ecommerce-product-detail.init.js"></script>
-<script> console.log("<%= data %>")</script>
+
+<script>
+    load_image()
+    load_video360()
+    load_plotting()
+    load_proportion()
+    load_certificate()
+
+    async function load_image() {
+        const url = '/stoneimage/<%= data.StockRef %>'
+
+        const options = {
+            method: "GET"
+        }
+
+        let response = await fetch(url, options)
+
+        if (response.status === 200) {
+
+            const imageBlob = await response.blob()
+            const imageObjectURL = URL.createObjectURL(imageBlob);
+
+            //const image = document.createElement('img')
+            //image.src = imageObjectURL
+
+            const container = document.getElementById("thumbnailVideo360")
+            container.src = imageObjectURL
+        } else {
+            console.log("HTTP-Error: " + response.status)
+        }
+    }
+    async function load_video360() {
+        const url = '/stonevideo360/<%= data.StockRef %>'
+
+        const options = {
+            method: "GET"
+        }
+
+        let response = await fetch(url, options)
+
+        if (response.status === 200) {
+
+            const imageBlob = await response.blob()
+            const imageObjectURL = URL.createObjectURL(imageBlob);
+
+            //const image = document.createElement('img')
+            //image.src = imageObjectURL
+
+            const container = document.getElementById("video360")
+            container.src = imageObjectURL
+            container.play();
+
+        } else {
+            console.log("HTTP-Error: " + response.status)
+        }
+    }
+
+    async function load_plotting() {
+        const url = '/stoneplotting/<%= data.StockRef %>'
+
+        const options = {
+            method: "GET"
+        }
+
+        let response = await fetch(url, options)
+
+        if (response.status === 200) {
+
+            const imageBlob = await response.blob()
+            const imageObjectURL = URL.createObjectURL(imageBlob);
+
+            //const image = document.createElement('img')
+            //image.src = imageObjectURL
+
+            const container = document.getElementById("plotting")
+            container.src = imageObjectURL
+            const thumbnail = document.getElementById("thumbnailPlotting")
+            thumbnail.src = imageObjectURL
+
+        } else {
+            console.log("HTTP-Error: " + response.status)
+        }
+    }
+
+    async function load_proportion() {
+        const url = '/stoneproportion/<%= data.StockRef %>'
+
+        const options = {
+            method: "GET"
+        }
+
+        let response = await fetch(url, options)
+
+        if (response.status === 200) {
+
+            const imageBlob = await response.blob()
+            const imageObjectURL = URL.createObjectURL(imageBlob);
+
+            //const image = document.createElement('img')
+            //image.src = imageObjectURL
+
+            const container = document.getElementById("proportion")
+            container.src = imageObjectURL
+            const thumbnail = document.getElementById("thumbnailProportion")
+            thumbnail.src = imageObjectURL
+
+        } else {
+            console.log("HTTP-Error: " + response.status)
+        }
+    }
+    async function load_certificate() {
+        const url = '/stonecertificate/<%= data.StockRef %>'
+
+        const options = {
+            method: "GET"
+        }
+
+        let response = await fetch(url, options)
+
+        if (response.status === 200) {
+
+            const imageBlob = await response.blob()
+            const imageObjectURL = URL.createObjectURL(imageBlob);
+
+            //const image = document.createElement('img')
+            //image.src = imageObjectURL
+
+            const container = document.getElementById("certificate")
+            container.src = imageObjectURL
+
+        } else {
+            console.log("HTTP-Error: " + response.status)
+        }
+    }
+</script>
