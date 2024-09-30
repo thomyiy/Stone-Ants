@@ -191,6 +191,7 @@ module.exports = function (route) {
     });
 
     route.get('/stones/:stoneId', async (req, res, next) => {
+        console.log(req.params.stoneId)
         var stone = await Stone.findById(req.params.stoneId)
         res.render('stone-detail', {
             data: stone,
