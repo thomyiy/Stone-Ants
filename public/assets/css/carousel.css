@@ -29,7 +29,7 @@
     z-index: 1;
     transition: left .4s cubic-bezier(.47,.13,.15,.89);
 }
-.slide > img{
+.slide > a > img{
     height:100%;
 }
 

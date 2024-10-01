@@ -19,34 +19,34 @@
                         <div id="carousel-content" class="carousel-content">
 
                             <div class="slide ">
-                                <img  id="image-0">
+                                <a id="link-0"><img  id="image-0"></a>
                             </div>
                             <div class="slide ">
-                                <img id="image-1">
+                                <a id="link-1"><img id="image-1"></a>
                             </div>
                             <div class="slide ">
-                                <img id="image-2">
+                                <a id="link-2"><img id="image-2"></a>
                             </div>
                             <div class="slide ">
-                                <img id="image-3">
+                                <a id="link-3"><img id="image-3"></a>
                             </div>
                             <div class="slide ">
-                                <img id="image-4">
+                                <a id="link-4"><img id="image-4"></a>
                             </div>
                             <div class="slide ">
-                                <img id="image-5">
+                                <a id="link-5"><img id="image-5"></a>
                             </div>
                             <div class="slide ">
-                                <img id="image-6">
+                                <a id="link-6"><img id="image-6"></a>
                             </div>
                             <div class="slide ">
-                                <img id="image-7">
+                                <a id="link-7"><img id="image-7"></a>
                             </div>
                             <div class="slide ">
-                                <img id="image-8">
+                                <a id="link-8"><img id="image-8"></a>
                             </div>
                             <div class="slide ">
-                                <img id="image-9">
+                                <a id="link-9"><img id="image-9"></a>
                             </div>
                         </div>
 
@@ -72,15 +72,14 @@
         .then( function (data) {
             console.log(data)
             for (let i = 0; i<data.length; i++) {
-                console.log(data[i].StockRef)
-                load_image(data[i].StockRef,i)
+                load_image(data[i],i)
             }
 
         }).catch(error => console.log('Error:', error));
 
 
-    async function load_image(stockRef,index) {
-        const url = '/stoneimage/' + stockRef
+    async function load_image(data,index) {
+        const url = '/stoneimage/' + data.StockRef
 
         const options = {
             method: "GET"
@@ -103,6 +102,8 @@
             const container = document.getElementById("image-"+index)
             container.src = imageObjectURL
 
+            const containerHref = document.getElementById("link-"+index)
+            containerHref.href="/stones/"+data._id
         } else {
             console.log("HTTP-Error: " + response.status)
         }
