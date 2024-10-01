@@ -14,9 +14,9 @@ const getStoneCertificate = async (req, res) => {
 
     if (!fs.existsSync("./uploads/" + stoneId + ".pdf"))
         res.sendStatus(404)
-        const options = {
-            root: path.join("./uploads")
-        };
+    const options = {
+        root: path.join("./uploads")
+    };
 
     const fileName = stoneId + '.pdf';
     res.sendFile(fileName, options, function (err) {
@@ -99,6 +99,22 @@ const getStoneProportion = async (req, res) => {
     });
 }
 
+const get10BiggestStone = async (req, res) => {
+    Stone.find()
+        .sort({Size: -1})
+        .limit(10)
+        .then(stones => {
+            console.log(stones)
+            res.send(stones)
+        });
+}
 
 
-module.exports = {getStoneCertificate, getStoneImage, getStoneVideo360, getStonePlotting,getStoneProportion}
+module.exports = {
+    getStoneCertificate,
+    getStoneImage,
+    getStoneVideo360,
+    getStonePlotting,
+    getStoneProportion,
+    get10BiggestStone
+}
