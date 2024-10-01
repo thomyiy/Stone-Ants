@@ -104,6 +104,7 @@ const importFromXlsx = async (req, res) => {
                 }
             }
             fs.unlinkSync("./uploads/" + filePath);
+            console.log("end "+"./uploads/" + filePath)
         });
     }
 }
