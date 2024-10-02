@@ -304,7 +304,7 @@
             })
             .then(function (data) {
                 grid.updateConfig({
-                    data: data.map((e) => [e.StockRef, e.Cert, e.Shape, e.Size, e.DispColor, e.DispClarity, e.Cut, e.Polish, e.Sym, e.Flour, e.RapRate, e.PPC, e.Total, e._id, e._id])
+                    data: data.map((e) => ['/stoneimage/' + e.StockRef,e.StockRef, e.Cert, e.Shape, e.Size, e.DispColor, e.DispClarity, e.Cut, e.Polish, e.Sym, e.Flour, e.RapRate, e.PPC, e.Total, e._id, e._id])
                 }).forceRender();
             }).catch(error => console.log('Error:', error));
 
@@ -371,7 +371,7 @@
     var grid = new gridjs.Grid({
         columns: [{
             name: 'Image',
-            formatter: (cell, row) => gridjs.html(`<img height="50px"  src="${cell}">`)
+            formatter: (cell, row) => gridjs.html(`<img style="height=:50px;width: 50px;background-position: center center;background-repeat: no-repeat;"  src="${cell}">`)
         },
             "StockRef", "Cert", "Shape", "Size", "DispColor", "DispClarity", "Cut", "Polish", "Sym", "Flour", "RapRate", "PPC", "Total",
             {
