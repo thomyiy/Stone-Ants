@@ -99,10 +99,10 @@ const getStoneProportion = async (req, res) => {
     });
 }
 
-const get10BiggestStone = async (req, res) => {
+const get12BiggestStone = async (req, res) => {
     Stone.find()
         .sort({Size: -1})
-        .limit(10)
+        .limit(12)
         .then(stones => {
             console.log(stones)
             res.send(stones)
@@ -116,5 +116,5 @@ module.exports = {
     getStoneVideo360,
     getStonePlotting,
     getStoneProportion,
-    get10BiggestStone
+    get12BiggestStone
 }

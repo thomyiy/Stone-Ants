@@ -243,7 +243,7 @@ module.exports = function (route) {
     route.get('/stonevideo360/:stoneId', StoneController.getStoneVideo360)
     route.get('/stoneplotting/:stoneId', StoneController.getStonePlotting)
     route.get('/stoneproportion/:stoneId', StoneController.getStoneProportion)
-    route.get('/get10BiggestStone', StoneController.get10BiggestStone)
+    route.get('/get12BiggestStone', StoneController.get12BiggestStone)
 
     route.get('/generatepost', PostController.generatePost)
 }

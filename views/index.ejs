@@ -1,66 +1,63 @@
 <%- contentFor('HeaderCss') %>
+
 <%- include("partials/title-meta", {"title": "Home"}) %>
 
-<link rel="stylesheet" type="text/css" href="/assets/css/carousel.css"/>
-
 <%- contentFor('body') %>
-<%- include("partials/page-title", {"pagetitle": "RAW Stones", "title": "Home !"}) %>
+<%- include("partials/page-title", {"pagetitle":"Raw Stones", "title": "Home"}) %>
 <div class="row">
-    <div class="col-xl-12">
+    <div class="col-xl-12 col-lg-12">
         <div class="card">
             <div class="card-body">
-                <div class="container">
+                <div>
+                    <div class="tab-content p-3 text-muted">
+                        <div class="tab-pane active" id="popularity" role="tabpanel">
+                            <div class="row">
+                                <% for(var i = 0; i < 12; i++) { %>
+                                    <div class="col-xl-2 col-sm-4">
+                                        <a id="link-<%= i %>" href="/">
+                                            <div class="product-box">
+                                                <div id="ribbon-<%= i %>" class="product-ribbon">
+                                                    - 20 %
+                                                </div>
+                                                <div class="product-img pt-4 px-4">
+                                                    <img id="image-<%= i %>" src="/assets/images/product/img-1.png"
+                                                         alt=""
+                                                         class="img-fluid mx-auto d-block">
+                                                </div>
 
-                    <div class="carousel">
-                        <div class="nav nav-left">
-                            <i data-feather="arrow-left"></i>
-                        </div>
-
-                        <div id="carousel-content" class="carousel-content">
-
-                            <div class="slide ">
-                                <a id="link-0"><img  id="image-0"></a>
+                                                <div class="product-content p-4">
+                                                    <div class="d-flex justify-content-between align-items-end">
+                                                        <div>
+                                                            <p id="title-<%= i %>" class="text-muted font-size-13">Gray,
+                                                                Shoes</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                <% } %>
                             </div>
-                            <div class="slide ">
-                                <a id="link-1"><img id="image-1"></a>
-                            </div>
-                            <div class="slide ">
-                                <a id="link-2"><img id="image-2"></a>
-                            </div>
-                            <div class="slide ">
-                                <a id="link-3"><img id="image-3"></a>
-                            </div>
-                            <div class="slide ">
-                                <a id="link-4"><img id="image-4"></a>
-                            </div>
-                            <div class="slide ">
-                                <a id="link-5"><img id="image-5"></a>
-                            </div>
-                            <div class="slide ">
-                                <a id="link-6"><img id="image-6"></a>
-                            </div>
-                            <div class="slide ">
-                                <a id="link-7"><img id="image-7"></a>
-                            </div>
-                            <div class="slide ">
-                                <a id="link-8"><img id="image-8"></a>
-                            </div>
-                            <div class="slide ">
-                                <a id="link-9"><img id="image-9"></a>
-                            </div>
-                        </div>
-
-                        <div class="nav nav-right">
-                            <i data-feather="arrow-right"></i>
+                            <!-- end row -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
+
+<%- contentFor('FooterJs') %>
+<!-- nouisliderribute js -->
+<script src="/assets/libs/nouislider/nouislider.min.js"></script>
+<script src="/assets/libs/wnumb/wNumb.min.js"></script>
+
+<!-- init js -->
+<script src="/assets/js/pages/product-filter-range.init.js"></script>
+
 <script>
-    fetch('/get10BiggestStone', {
+    fetch('/get12BiggestStone', {
         method: 'GET',
         headers: {
             'Content-type': 'application/json; charset=UTF-8',
@@ -69,16 +66,21 @@
         .then(function (response) {
             return response.json()
         })
-        .then( function (data) {
+        .then(function (data) {
             console.log(data)
-            for (let i = 0; i<data.length; i++) {
-                load_image(data[i],i)
+            for (let i = 0; i < data.length; i++) {
+                const container = document.getElementById("ribbon-" + i)
+                container.innerHTML = Math.round(100 - data[i].RapRate / data[i].PPC * 100) + "%"
+
+                const tittle = document.getElementById("title-" + i)
+                tittle.innerHTML = data[i].Size + " | " + data[i].DispColor + " | " + data[i].DispClarity + " | " + data[i].Flour + " | " + data[i].Cert
+                load_image(data[i], i)
             }
 
         }).catch(error => console.log('Error:', error));
 
 
-    async function load_image(data,index) {
+    async function load_image(data, index) {
         const url = '/stoneimage/' + data.StockRef
 
         const options = {
@@ -88,9 +90,6 @@
         let response = await fetch(url, options)
 
         if (response.status === 200) {
-
-            console.log("image loaded")
-
             const imageBlob = await response.blob()
             const imageObjectURL = URL.createObjectURL(imageBlob);
 
@@ -99,190 +98,14 @@
 
             /*const container = document.getElementById("thumbnailVideo360")
             container.src = imageObjectURL*/
-            const container = document.getElementById("image-"+index)
+            const container = document.getElementById("image-" + index)
             container.src = imageObjectURL
 
-            const containerHref = document.getElementById("link-"+index)
-            containerHref.href="/stones/"+data._id
+            const containerHref = document.getElementById("link-" + index)
+            containerHref.href = "/stones/" + data._id
         } else {
             console.log("HTTP-Error: " + response.status)
         }
     }
 
-    var carousel = document.querySelector('.carousel');
-    var carouselContent = document.querySelector('.carousel-content');
-    var slides = document.querySelectorAll('.slide');
-    var arrayOfSlides = Array.prototype.slice.call(slides);
-    var carouselDisplaying;
-    var screenSize;
-    setScreenSize();
-    var lengthOfSlide;
-
-    function addClone() {
-        var lastSlide = carouselContent.lastElementChild.cloneNode(true);
-        lastSlide.style.left = (-lengthOfSlide) + "px";
-        carouselContent.insertBefore(lastSlide, carouselContent.firstChild);
-    }
-
-    // addClone();
-
-    function removeClone() {
-        var firstSlide = carouselContent.firstElementChild;
-        firstSlide.parentNode.removeChild(firstSlide);
-    }
-
-    function moveSlidesRight() {
-        var slides = document.querySelectorAll('.slide');
-        var slidesArray = Array.prototype.slice.call(slides);
-        var width = 0;
-
-        slidesArray.forEach(function (el, i) {
-            el.style.left = width + "px";
-            width += lengthOfSlide;
-        });
-        addClone();
-    }
-
-    moveSlidesRight();
-
-    function moveSlidesLeft() {
-        var slides = document.querySelectorAll('.slide');
-        var slidesArray = Array.prototype.slice.call(slides);
-        slidesArray = slidesArray.reverse();
-        var maxWidth = (slidesArray.length - 1) * lengthOfSlide;
-
-        slidesArray.forEach(function (el, i) {
-            maxWidth -= lengthOfSlide;
-            el.style.left = maxWidth + "px";
-        });
-    }
-
-    window.addEventListener('resize', setScreenSize);
-
-    function setScreenSize() {
-        if (window.innerWidth >= 500) {
-            carouselDisplaying = 3;
-        } else if (window.innerWidth >= 300) {
-            carouselDisplaying = 2;
-        } else {
-            carouselDisplaying = 1;
-        }
-        getScreenSize();
-    }
-
-    function getScreenSize() {
-        var slides = document.querySelectorAll('.slide');
-        var slidesArray = Array.prototype.slice.call(slides);
-        lengthOfSlide = (carousel.offsetWidth / carouselDisplaying);
-        var initialWidth = -lengthOfSlide;
-        slidesArray.forEach(function (el) {
-            el.style.width = lengthOfSlide + "px";
-            el.style.left = initialWidth + "px";
-            initialWidth += lengthOfSlide;
-        });
-    }
-
-
-    var rightNav = document.querySelector('.nav-right');
-    rightNav.addEventListener('click', moveLeft);
-
-    var moving = true;
-
-    function moveRight() {
-        if (moving) {
-            moving = false;
-            var lastSlide = carouselContent.lastElementChild;
-            lastSlide.parentNode.removeChild(lastSlide);
-            carouselContent.insertBefore(lastSlide, carouselContent.firstChild);
-            removeClone();
-            var firstSlide = carouselContent.firstElementChild;
-            firstSlide.addEventListener('transitionend', activateAgain);
-            moveSlidesRight();
-        }
-    }
-
-    function activateAgain() {
-        var firstSlide = carouselContent.firstElementChild;
-        moving = true;
-        firstSlide.removeEventListener('transitionend', activateAgain);
-    }
-
-    var leftNav = document.querySelector('.nav-left');
-    leftNav.addEventListener('click', moveRight);
-
-    // var moveLeftAgain = true;
-
-    function moveLeft() {
-        if (moving) {
-            moving = false;
-            removeClone();
-            var firstSlide = carouselContent.firstElementChild;
-            firstSlide.addEventListener('transitionend', replaceToEnd);
-            moveSlidesLeft();
-        }
-    }
-
-    function replaceToEnd() {
-        var firstSlide = carouselContent.firstElementChild;
-        firstSlide.parentNode.removeChild(firstSlide);
-        carouselContent.appendChild(firstSlide);
-        firstSlide.style.left = ((arrayOfSlides.length - 1) * lengthOfSlide) + "px";
-        addClone();
-        moving = true;
-        firstSlide.removeEventListener('transitionend', replaceToEnd);
-    }
-
-
-    carouselContent.addEventListener('mousedown', seeMovement);
-
-    var initialX;
-    var initialPos;
-
-    function seeMovement(e) {
-        initialX = e.clientX;
-        getInitialPos();
-        carouselContent.addEventListener('mousemove', slightMove);
-        document.addEventListener('mouseup', moveBasedOnMouse);
-    }
-
-    function slightMove(e) {
-        if (moving) {
-            var movingX = e.clientX;
-            var difference = initialX - movingX;
-            if (Math.abs(difference) < (lengthOfSlide / 4)) {
-                slightMoveSlides(difference);
-            }
-        }
-    }
-
-    function getInitialPos() {
-        var slides = document.querySelectorAll('.slide');
-        var slidesArray = Array.prototype.slice.call(slides);
-        initialPos = [];
-        slidesArray.forEach(function (el) {
-            var left = Math.floor(parseInt(el.style.left.slice(0, -2)));
-            initialPos.push(left);
-        });
-    }
-
-    function slightMoveSlides(newX) {
-        var slides = document.querySelectorAll('.slide');
-        var slidesArray = Array.prototype.slice.call(slides);
-        slidesArray.forEach(function (el, i) {
-            var oldLeft = initialPos[i];
-            el.style.left = (oldLeft + newX) + "px";
-        });
-    }
-
-    function moveBasedOnMouse(e) {
-        var finalX = e.clientX;
-        if (initialX - finalX > 0) {
-            moveRight();
-        } else if (initialX - finalX < 0) {
-            moveLeft();
-        }
-        document.removeEventListener('mouseup', moveBasedOnMouse);
-        carouselContent.removeEventListener('mousemove', slightMove);
-    }
 </script>
-<%- contentFor('FooterJs') %>
