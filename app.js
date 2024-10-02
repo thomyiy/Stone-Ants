@@ -18,7 +18,7 @@ const expressPartials = require('express-partials');
 
 const test = require("./test/test");
 const User = require("./models/UserModel");
-//test();
+test();
 
 var urlencodeParser = bodyParser.urlencoded({extended: true});
 app.use(urlencodeParser);

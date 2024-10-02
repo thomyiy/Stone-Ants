@@ -69,8 +69,9 @@
         .then(function (data) {
             console.log(data)
             for (let i = 0; i < data.length; i++) {
+                const disc = 100-Math.round(  data[i].PPC /data[i].RapRate*10000)/100
                 const container = document.getElementById("ribbon-" + i)
-                container.innerHTML = Math.round(100 - data[i].RapRate / data[i].PPC * 100) + "%"
+                container.innerHTML = disc + "%"
 
                 const tittle = document.getElementById("title-" + i)
                 tittle.innerHTML = data[i].Size + " | " + data[i].DispColor + " | " + data[i].DispClarity + " | " + data[i].Flour + " | " + data[i].Cert

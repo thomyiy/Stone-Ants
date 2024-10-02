@@ -1,10 +1,32 @@
 const fs = require('fs')
 const csv = require('csv-parser');
 var cron = require('node-cron');
+var request = require("request");
 
 const https = require("https");
 
+const testApi = () => {
+    console.log("test Api")
 
+    var options = { method: 'POST',
+        url: 'https://stock.ddpl.com/dharamwebapi/api/StockDispApi/getDiamondData',
+        headers: { 'content-type': 'application/json' },
+        body: '{\n \n uniqID : \'27531\',\n company : \'STONE ANTS\',\n actCode:\'Sto@Ley#456@!\',\n selectAll : \'All\',\n StartIndex : \'1\',\n Count : \'20\',\n columns: \'\',\n finder : \'\',\n sort : \'\'\n}' };
+    request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+        console.log(body);
+    });
+     /*request.post({
+        uri: "http://www.dharamhk.com/dharamwebapi/api/StockDispApi/getDiamondData",
+         headers: { 'content-type': 'application/json' },
+         body:'{\n \n uniqID : \'27531\',\n company : \'STONE ANTS\',\n actCode:\'Sto@Ley#456@!\',\n selectAll : \'All\',\n StartIndex : \'1\',\n count : \'20\',\n columns: \'\',\n finder : \'\',\n sort : \'\'\n}'
+    }).then(function (data) {
+        console.log("lalal")
+    }).catch(function (err) {
+         console.log("err")
+        console.log(err)
+     });*/
+}
 const test = () => {
 
     scraphtml();
@@ -181,4 +203,4 @@ function downloadCSV() {
     });
 }
 
-module.exports = test;
+module.exports = testApi;
