@@ -369,7 +369,11 @@
     );
 
     var grid = new gridjs.Grid({
-        columns: ["StockRef", "Cert", "Shape", "Size", "DispColor", "DispClarity", "Cut", "Polish", "Sym", "Flour", "RapRate", "PPC", "Total",
+        columns: [{
+            name: 'Image',
+            formatter: (cell, row) => gridjs.html(`<img height="50px"  src="${cell}">`)
+        },
+            "StockRef", "Cert", "Shape", "Size", "DispColor", "DispClarity", "Cut", "Polish", "Sym", "Flour", "RapRate", "PPC", "Total",
             {
                 name: 'SELECT',
                 formatter: (cell, row) => gridjs.html(`<input type="checkbox" onchange="toggleCheckbox(this,'${cell}')" value="false" class="checkbox" id="${cell}">`)
@@ -391,7 +395,7 @@
                     return response.json()
                 });
 
-            return data.map((e) => [e.StockRef, e.Cert, e.Shape, e.Size, e.DispColor, e.DispClarity, e.Cut, e.Polish, e.Sym, e.Flour, e.RapRate, e.PPC, e.Total, e._id, e._id]);
+            return data.map((e) => ['/stoneimage/' + e.StockRef,e.StockRef, e.Cert, e.Shape, e.Size, e.DispColor, e.DispClarity, e.Cut, e.Polish, e.Sym, e.Flour, e.RapRate, e.PPC, e.Total, e._id, e._id]);
         },
         sort: true
     }).render(document.getElementById("table-pagination"));
