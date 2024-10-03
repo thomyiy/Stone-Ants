@@ -18,7 +18,6 @@ const expressPartials = require('express-partials');
 
 const test = require("./test/test");
 const User = require("./models/UserModel");
-test();
 
 var urlencodeParser = bodyParser.urlencoded({extended: true});
 app.use(urlencodeParser);
@@ -68,6 +67,7 @@ mongoose.connect(DB, {
             console.log("Admin user already exist")
     }
 });
+test();
 
 // for i18 usr
 app.use(i18n({
